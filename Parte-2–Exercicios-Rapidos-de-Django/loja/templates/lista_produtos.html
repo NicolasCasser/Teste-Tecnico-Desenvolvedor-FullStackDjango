@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <ul>
+        <!--Gera uma lista HTML com o nome e preço de cada produto-->
+        {% for produto in produtos %} 
+            <li>{{ produto.nome }} - R$ {{ produto.preco }} - {{ produto.descricao }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
