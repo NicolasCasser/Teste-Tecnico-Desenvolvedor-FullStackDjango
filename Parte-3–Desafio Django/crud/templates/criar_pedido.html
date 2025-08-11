@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>Cadastrar Pedido</title>
+  </head>
+<body class="p-4">
+    <div class="container">
+        <h1>Criar Pedido</h1>
+        <form action="" method="POST"> {% csrf_token %}
+            <div class="mb-3">
+                <label for="cliente" class="form-label">Cliente</label>
+                <select name="cliente" id="cliente" class="form-select" required multiple>
+                    <option value="">Selecione um Cliente</option>
+                    {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Produtos</label>
+                <div>
+                    {% for produto in produtos %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="produtos" id="produto{{ produto.id }}" value="{{ produto.id }}" data-preco="{{ produto.preco }}">
+                        <label class="form-check-label" for="produto{{ produto.id }}">
+                        {{ produto.nome }} - R$ {{ produto.preco }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p><strong>Valor Total: R$ <span id="valor-total">0,00</span></strong></p>
+
+            <button type="submit" class="btn btn-primary">Salvar Pedido</button>
+        </form>
+        <a href="{% url 'lista_pedidos' %}" class="btn btn-dark">Voltar</a>
+    </div>
+    <script src="{% static 'crud/pedido.js' %}"></script>
+</body>
+</html>

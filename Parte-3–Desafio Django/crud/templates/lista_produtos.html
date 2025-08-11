@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Lista de Produtos</h1>
+        <a href="{% url 'criar_produto' %}" class="btn btn-secondary">Cadastrar Produto</a>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produto in produtos %}
+                <tr>
+                <td>
+                    <form action="{% url 'atualizar_produto' produto.id%}" method="POST"> {% csrf_token %}
+                    <input type="text" name="nome" value="{{produto.nome}}" class="form-control">
+                </td>
+                <td>
+                   <input type="number" step="0.01" min="0" placeholder="0.00" name="preco" value="{{produto.preco}}" class="form-control">
+                </td>
+                <td>
+                    <input type="submit" value="Atualizar" class="btn btn-primary">
+                    </form>
+                </td>
+                <td>
+                    <a href="{% url 'deletar_produto' produto.id %}" class="btn btn-danger">Deletar</a>
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        <a href="{% url 'home' %}" class="btn btn-dark">Voltar</a>
+    </div>
+</body>
+</html>
